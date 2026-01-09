@@ -33,16 +33,44 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
   const step = getCurrentStep()
   const lesson = getLessonForPiece(currentPiece)
 
+  // Generate random target positions for challenge step
+  const generateRandomTargets = (count: number, piecePosition: Position): Position[] => {
+    const targets: Position[] = []
+    const pieceKey = `${piecePosition.row},${piecePosition.col}`
+
+    while (targets.length < count) {
+      const row = Math.floor(Math.random() * 8)
+      const col = Math.floor(Math.random() * 8)
+      const key = `${row},${col}`
+
+      // Make sure target doesn't overlap with piece or other targets
+      const isOccupied = key === pieceKey || targets.some(t => t.row === row && t.col === col)
+      if (!isOccupied) {
+        targets.push({ row, col })
+      }
+    }
+
+    return targets
+  }
+
   // Setup board when step changes
   useEffect(() => {
+    let targets = step.targets
+
+    // Randomize target positions for challenge step
+    if (step.type === 'challenge' && step.pieces.length > 0) {
+      const piecePos = step.pieces[0].position
+      targets = generateRandomTargets(3, piecePos)
+    }
+
     setupBoard({
       boardSize: 8,
       pieces: step.pieces,
-      targets: step.targets
+      targets
     })
   }, [step, setupBoard])
 
-  const handleMoveComplete = (_from: Position, to: Position) => {
+  const handleMoveComplete = (_from: Position, _to: Position, hitTarget: boolean) => {
     incrementMoves()
 
     // Read fresh state from stores
@@ -50,9 +78,6 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
     const currentMoves = useLessonStore.getState().movesMade
     const currentTargets = useGameStore.getState().targets
     const piece = useLessonStore.getState().currentPiece
-
-    // Check if captured a target
-    const hitTarget = currentStep.targets?.some(t => t.row === to.row && t.col === to.col)
 
     if (hitTarget) {
       playStarSound()

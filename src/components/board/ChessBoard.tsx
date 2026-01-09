@@ -6,7 +6,7 @@ import './ChessBoard.css'
 
 interface ChessBoardProps {
   showValidMoves?: boolean
-  onMoveComplete?: (from: Position, to: Position) => void
+  onMoveComplete?: (from: Position, to: Position, hitTarget: boolean) => void
 }
 
 export function ChessBoard({ showValidMoves = true, onMoveComplete }: ChessBoardProps) {
@@ -24,10 +24,12 @@ export function ChessBoard({ showValidMoves = true, onMoveComplete }: ChessBoard
 
   const handleSquareClick = (position: Position) => {
     const wasValidMove = selectedPosition && isValidMove(position)
+    // Check if target was hit BEFORE selectSquare removes it
+    const hitTarget = wasValidMove && isTarget(position)
     selectSquare(position)
 
     if (wasValidMove && selectedPosition && onMoveComplete) {
-      onMoveComplete(selectedPosition, position)
+      onMoveComplete(selectedPosition, position, hitTarget)
     }
   }
 
