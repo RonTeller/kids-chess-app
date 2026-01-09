@@ -114,11 +114,20 @@ function getKnightMoves(position: Position, board: Board, boardSize: number): Po
 function getPawnMoves(position: Position, color: 'white' | 'black', board: Board, boardSize: number): Position[] {
   const moves: Position[] = []
   const direction = color === 'white' ? -1 : 1 // White moves up (negative row), black moves down
+  const startRow = color === 'white' ? 6 : 1 // Starting row for pawns
 
-  // Forward move
+  // Forward move (one step)
   const forward = { row: position.row + direction, col: position.col }
   if (isOnBoard(forward, boardSize) && !isBlocked(forward, board)) {
     moves.push(forward)
+
+    // Two-step move from starting position
+    if (position.row === startRow) {
+      const twoForward = { row: position.row + direction * 2, col: position.col }
+      if (isOnBoard(twoForward, boardSize) && !isBlocked(twoForward, board)) {
+        moves.push(twoForward)
+      }
+    }
   }
 
   // Capture diagonals

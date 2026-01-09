@@ -176,15 +176,29 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
             }
           }, 2000)
         } else {
-          // Practice complete - show confetti and move to challenge
-          playCelebrationSound()
-          setCelebrationType('confetti')
-          setShowCelebration(true)
-          setTimeout(() => {
-            setShowCelebration(false)
-            nextStep()
-            setIsTransitioning(false)
-          }, 2000)
+          // Practice complete
+          const lesson = getLessonForPiece(piece)
+          if (lesson.steps.length === 1) {
+            // Only practice step (e.g., pawn) - complete the lesson
+            playFireworksSound()
+            markPieceComplete(piece)
+            setCelebrationType('fireworks')
+            setShowCelebration(true)
+            setTimeout(() => {
+              setShowCelebration(false)
+              onBack()
+            }, 3000)
+          } else {
+            // Show confetti and move to challenge
+            playCelebrationSound()
+            setCelebrationType('confetti')
+            setShowCelebration(true)
+            setTimeout(() => {
+              setShowCelebration(false)
+              nextStep()
+              setIsTransitioning(false)
+            }, 2000)
+          }
         }
       }, 500)
     }
