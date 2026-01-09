@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion'
 import { getAllLessons } from '../../lessons/lessonData'
-import { useLessonStore } from '../../stores/lessonStore'
 import type { PieceType } from '../../chess/types'
 import {
   RookPiece,
@@ -27,7 +26,6 @@ const pieceComponents: Record<PieceType, React.FC<{ color: 'white' | 'black' }>>
 
 export function HomeScreen({ onSelectPiece }: HomeScreenProps) {
   const lessons = getAllLessons()
-  const { isPieceCompleted } = useLessonStore()
 
   return (
     <motion.div
@@ -57,12 +55,11 @@ export function HomeScreen({ onSelectPiece }: HomeScreenProps) {
       <div className="piece-grid">
         {lessons.map((lesson, index) => {
           const PieceComponent = pieceComponents[lesson.pieceType]
-          const isCompleted = isPieceCompleted(lesson.pieceType)
 
           return (
             <motion.button
               key={lesson.pieceType}
-              className={`piece-card ${isCompleted ? 'piece-card--completed' : ''}`}
+              className="piece-card"
               style={{
                 '--card-color': lesson.themeColor
               } as React.CSSProperties}
@@ -81,26 +78,6 @@ export function HomeScreen({ onSelectPiece }: HomeScreenProps) {
                 <PieceComponent color="white" />
               </div>
               <span className="piece-card-name">{lesson.friendlyName}</span>
-              {isCompleted && (
-                <motion.div
-                  className="piece-card-check"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ type: 'spring', bounce: 0.6 }}
-                >
-                  <svg viewBox="0 0 24 24" width="32" height="32">
-                    <circle cx="12" cy="12" r="11" fill="#2ECC71" />
-                    <path
-                      d="M9 12l2 2 4-4"
-                      stroke="white"
-                      strokeWidth="2"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </motion.div>
-              )}
             </motion.button>
           )
         })}
