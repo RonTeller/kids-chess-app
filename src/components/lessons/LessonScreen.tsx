@@ -73,17 +73,21 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
   }
 
   const checkStepComplete = (): boolean => {
+    // Read fresh state from stores - closure values are stale after store updates
+    const currentMoves = useLessonStore.getState().movesMade
+    const currentTargets = useGameStore.getState().targets
+
     switch (step.type) {
       case 'intro':
-        return movesMade >= 0 // Always advance on tap
+        return true // Always advance on tap
       case 'demo':
         return true // Auto-advance
       case 'guided':
-        return movesMade >= 1
+        return currentMoves >= 1
       case 'practice':
-        return movesMade >= (step.requiredMoves || 3)
+        return currentMoves >= (step.requiredMoves || 3)
       case 'challenge':
-        return targets.length === 0 // All targets captured
+        return currentTargets.length === 0 // All targets captured
       case 'celebration':
         return false // Manual advance
       default:
