@@ -45,8 +45,14 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
   const handleMoveComplete = (_from: Position, to: Position) => {
     incrementMoves()
 
+    // Read fresh state from stores
+    const currentStep = useLessonStore.getState().getCurrentStep()
+    const currentMoves = useLessonStore.getState().movesMade
+    const currentTargets = useGameStore.getState().targets
+    const piece = useLessonStore.getState().currentPiece
+
     // Check if captured a target
-    const hitTarget = step.targets?.some(t => t.row === to.row && t.col === to.col)
+    const hitTarget = currentStep.targets?.some(t => t.row === to.row && t.col === to.col)
 
     if (hitTarget) {
       setCelebrationType('stars')
@@ -54,20 +60,32 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
       setTimeout(() => setShowCelebration(false), 1500)
     }
 
-    // Check completion conditions
-    const shouldAdvance = checkStepComplete()
+    // Check completion conditions based on step type
+    let shouldAdvance = false
+    switch (currentStep.type) {
+      case 'guided':
+        shouldAdvance = currentMoves >= 1
+        break
+      case 'practice':
+        shouldAdvance = currentMoves >= (currentStep.requiredMoves || 3)
+        break
+      case 'challenge':
+        shouldAdvance = currentTargets.length === 0
+        break
+    }
+
     if (shouldAdvance) {
       setTimeout(() => {
-        if (step.type === 'challenge') {
+        if (currentStep.type === 'challenge') {
           // Challenge complete - show fireworks and go back to home
-          markPieceComplete(currentPiece)
+          markPieceComplete(piece)
           setCelebrationType('fireworks')
           setShowCelebration(true)
           setTimeout(() => {
             setShowCelebration(false)
             onBack()
           }, 3000)
-        } else if (step.type === 'practice') {
+        } else if (currentStep.type === 'practice') {
           setCelebrationType('confetti')
           setShowCelebration(true)
           setTimeout(() => {
@@ -78,29 +96,6 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
           advanceStep()
         }
       }, 500)
-    }
-  }
-
-  const checkStepComplete = (): boolean => {
-    // Read fresh state from stores - closure values are stale after store updates
-    const currentMoves = useLessonStore.getState().movesMade
-    const currentTargets = useGameStore.getState().targets
-
-    switch (step.type) {
-      case 'intro':
-        return true // Always advance on tap
-      case 'demo':
-        return true // Auto-advance
-      case 'guided':
-        return currentMoves >= 1
-      case 'practice':
-        return currentMoves >= (step.requiredMoves || 3)
-      case 'challenge':
-        return currentTargets.length === 0 // All targets captured
-      case 'celebration':
-        return false // Manual advance
-      default:
-        return false
     }
   }
 
