@@ -140,7 +140,12 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
         <div className="lesson-board-container">
           <ChessBoard
             showValidMoves={true}
-            onMoveComplete={handleMoveComplete}
+            onMoveComplete={
+              // Only allow moves during interactive steps (not intro/demo/celebration)
+              step.type === 'guided' || step.type === 'practice' || step.type === 'challenge'
+                ? handleMoveComplete
+                : undefined
+            }
           />
         </div>
 
