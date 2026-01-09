@@ -8,7 +8,8 @@ interface LessonPromptProps {
 
 const prompts: Record<LessonStepType, (name: string) => string> = {
   practice: () => `Move me around!`,
-  challenge: () => `Catch the stars!`
+  challenge: () => `Catch the stars!`,
+  chase: () => `Catch me!`
 }
 
 export function LessonPrompt({ stepType, pieceName }: LessonPromptProps) {

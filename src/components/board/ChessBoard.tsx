@@ -7,9 +7,10 @@ import './ChessBoard.css'
 interface ChessBoardProps {
   showValidMoves?: boolean
   onMoveComplete?: (from: Position, to: Position, hitTarget: boolean) => void
+  disabled?: boolean
 }
 
-export function ChessBoard({ showValidMoves = true, onMoveComplete }: ChessBoardProps) {
+export function ChessBoard({ showValidMoves = true, onMoveComplete, disabled = false }: ChessBoardProps) {
   const {
     boardSize,
     pieces,
@@ -23,6 +24,8 @@ export function ChessBoard({ showValidMoves = true, onMoveComplete }: ChessBoard
   } = useGameStore()
 
   const handleSquareClick = (position: Position) => {
+    if (disabled) return // Don't process clicks when disabled
+
     const wasValidMove = selectedPosition && isValidMove(position)
     // Check if target was hit BEFORE selectSquare removes it
     const hitTarget = wasValidMove && isTarget(position)

@@ -1,6 +1,6 @@
 import type { PieceType, PiecePlacement, Position } from '../chess/types'
 
-export type LessonStepType = 'practice' | 'challenge'
+export type LessonStepType = 'practice' | 'challenge' | 'chase'
 
 export interface LessonStep {
   id: string
@@ -10,6 +10,7 @@ export interface LessonStep {
   targets?: Position[]
   showValidMoves: boolean
   requiredMoves?: number
+  enemyPiece?: PiecePlacement  // For chase mode - the piece to catch
 }
 
 export interface PieceLesson {
@@ -42,6 +43,14 @@ const rookLessons: PieceLesson = {
       pieces: [{ piece: { type: 'rook', color: 'white' }, position: { row: 4, col: 4 } }],
       targets: [{ row: 0, col: 4 }, { row: 4, col: 0 }, { row: 7, col: 4 }],
       showValidMoves: true
+    },
+    {
+      id: 'rook-chase',
+      type: 'chase',
+      boardSize: 8,
+      pieces: [{ piece: { type: 'rook', color: 'white' }, position: { row: 4, col: 4 } }],
+      enemyPiece: { piece: { type: 'knight', color: 'black' }, position: { row: 1, col: 1 } },
+      showValidMoves: true
     }
   ]
 }
@@ -67,6 +76,14 @@ const bishopLessons: PieceLesson = {
       boardSize: 8,
       pieces: [{ piece: { type: 'bishop', color: 'white' }, position: { row: 4, col: 4 } }],
       targets: [{ row: 0, col: 0 }, { row: 7, col: 7 }, { row: 1, col: 7 }],
+      showValidMoves: true
+    },
+    {
+      id: 'bishop-chase',
+      type: 'chase',
+      boardSize: 8,
+      pieces: [{ piece: { type: 'bishop', color: 'white' }, position: { row: 4, col: 4 } }],
+      enemyPiece: { piece: { type: 'knight', color: 'black' }, position: { row: 1, col: 2 } },
       showValidMoves: true
     }
   ]
@@ -94,6 +111,14 @@ const queenLessons: PieceLesson = {
       pieces: [{ piece: { type: 'queen', color: 'white' }, position: { row: 4, col: 4 } }],
       targets: [{ row: 0, col: 0 }, { row: 0, col: 7 }, { row: 7, col: 4 }],
       showValidMoves: true
+    },
+    {
+      id: 'queen-chase',
+      type: 'chase',
+      boardSize: 8,
+      pieces: [{ piece: { type: 'queen', color: 'white' }, position: { row: 4, col: 4 } }],
+      enemyPiece: { piece: { type: 'knight', color: 'black' }, position: { row: 1, col: 1 } },
+      showValidMoves: true
     }
   ]
 }
@@ -120,6 +145,14 @@ const kingLessons: PieceLesson = {
       pieces: [{ piece: { type: 'king', color: 'white' }, position: { row: 4, col: 4 } }],
       targets: [{ row: 3, col: 3 }, { row: 5, col: 5 }, { row: 3, col: 5 }],
       showValidMoves: true
+    },
+    {
+      id: 'king-chase',
+      type: 'chase',
+      boardSize: 8,
+      pieces: [{ piece: { type: 'king', color: 'white' }, position: { row: 4, col: 4 } }],
+      enemyPiece: { piece: { type: 'knight', color: 'black' }, position: { row: 1, col: 1 } },
+      showValidMoves: true
     }
   ]
 }
@@ -145,6 +178,14 @@ const knightLessons: PieceLesson = {
       boardSize: 8,
       pieces: [{ piece: { type: 'knight', color: 'white' }, position: { row: 4, col: 4 } }],
       targets: [{ row: 2, col: 3 }, { row: 6, col: 5 }, { row: 3, col: 6 }],
+      showValidMoves: true
+    },
+    {
+      id: 'knight-chase',
+      type: 'chase',
+      boardSize: 8,
+      pieces: [{ piece: { type: 'knight', color: 'white' }, position: { row: 4, col: 4 } }],
+      enemyPiece: { piece: { type: 'knight', color: 'black' }, position: { row: 1, col: 1 } },
       showValidMoves: true
     }
   ]

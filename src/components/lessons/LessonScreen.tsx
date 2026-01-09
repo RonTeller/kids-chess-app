@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChessBoard } from '../board/ChessBoard'
 import { Celebration } from '../feedback/Celebration'
@@ -8,6 +8,8 @@ import { useGameStore } from '../../stores/gameStore'
 import { useLessonStore } from '../../stores/lessonStore'
 import { getLessonForPiece } from '../../lessons/lessonData'
 import { playMoveSound, playStarSound, playCelebrationSound, playFireworksSound } from '../../audio/sounds'
+import { calculateEscapeMove } from '../../chess/chaseAI'
+import { positionToKey, positionsEqual } from '../../chess/types'
 import type { Position } from '../../chess/types'
 import './LessonScreen.css'
 
@@ -29,6 +31,8 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
 
   const [showCelebration, setShowCelebration] = useState(false)
   const [celebrationType, setCelebrationType] = useState<'stars' | 'confetti' | 'fireworks'>('stars')
+  const [isAIMoving, setIsAIMoving] = useState(false)
+  const enemyPositionRef = useRef<Position | null>(null)
 
   const step = getCurrentStep()
   const lesson = getLessonForPiece(currentPiece)
@@ -56,6 +60,7 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
   // Setup board when step changes
   useEffect(() => {
     let targets = step.targets
+    let piecesToPlace = [...step.pieces]
 
     // Randomize target positions for challenge step
     if (step.type === 'challenge' && step.pieces.length > 0) {
@@ -63,14 +68,22 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
       targets = generateRandomTargets(3, piecePos)
     }
 
+    // For chase mode, add the enemy piece to the board
+    if (step.type === 'chase' && step.enemyPiece) {
+      piecesToPlace.push(step.enemyPiece)
+      enemyPositionRef.current = step.enemyPiece.position
+    } else {
+      enemyPositionRef.current = null
+    }
+
     setupBoard({
       boardSize: 8,
-      pieces: step.pieces,
+      pieces: piecesToPlace,
       targets
     })
   }, [step, setupBoard])
 
-  const handleMoveComplete = (_from: Position, _to: Position, hitTarget: boolean) => {
+  const handleMoveComplete = (_from: Position, to: Position, hitTarget: boolean) => {
     incrementMoves()
 
     // Read fresh state from stores
@@ -78,6 +91,35 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
     const currentMoves = useLessonStore.getState().movesMade
     const currentTargets = useGameStore.getState().targets
     const piece = useLessonStore.getState().currentPiece
+
+    // Handle chase mode
+    if (currentStep.type === 'chase') {
+      playMoveSound()
+
+      // Check if player caught the enemy
+      const enemyPos = enemyPositionRef.current
+      if (enemyPos && positionsEqual(to, enemyPos)) {
+        // Player caught the enemy!
+        enemyPositionRef.current = null
+        playFireworksSound()
+        markPieceComplete(piece)
+        setCelebrationType('fireworks')
+        setShowCelebration(true)
+        setTimeout(() => {
+          setShowCelebration(false)
+          onBack()
+        }, 3000)
+        return
+      }
+
+      // Enemy needs to escape - trigger AI move after delay
+      setIsAIMoving(true)
+      setTimeout(() => {
+        makeAIMove(to)
+        setIsAIMoving(false)
+      }, 800)
+      return
+    }
 
     if (hitTarget) {
       playStarSound()
@@ -99,15 +141,28 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
     if (shouldAdvance) {
       setTimeout(() => {
         if (currentStep.type === 'challenge') {
-          // Challenge complete - show fireworks and go back to home
-          playFireworksSound()
-          markPieceComplete(piece)
-          setCelebrationType('fireworks')
+          // Challenge complete - show confetti and move to chase (if not pawn)
+          playCelebrationSound()
+          setCelebrationType('confetti')
           setShowCelebration(true)
           setTimeout(() => {
             setShowCelebration(false)
-            onBack()
-          }, 3000)
+            // Check if there's a chase step (pawns don't have one)
+            const lesson = getLessonForPiece(piece)
+            if (lesson.steps.length > 2) {
+              nextStep()
+            } else {
+              // Pawn - no chase step, complete the lesson
+              playFireworksSound()
+              markPieceComplete(piece)
+              setCelebrationType('fireworks')
+              setShowCelebration(true)
+              setTimeout(() => {
+                setShowCelebration(false)
+                onBack()
+              }, 3000)
+            }
+          }, 2000)
         } else {
           // Practice complete - show confetti and move to challenge
           playCelebrationSound()
@@ -120,6 +175,32 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
         }
       }, 500)
     }
+  }
+
+  // Make the AI escape move
+  const makeAIMove = (playerPosition: Position) => {
+    const enemyPos = enemyPositionRef.current
+    if (!enemyPos) return
+
+    const { pieces, boardSize } = useGameStore.getState()
+    const enemyPiece = pieces.get(positionToKey(enemyPos))
+    if (!enemyPiece) return
+
+    const escapeMove = calculateEscapeMove(
+      enemyPiece,
+      enemyPos,
+      playerPosition,
+      pieces,
+      boardSize
+    )
+
+    if (escapeMove) {
+      // Move the enemy piece
+      useGameStore.getState().movePiece(enemyPos, escapeMove)
+      enemyPositionRef.current = escapeMove
+      playMoveSound()
+    }
+    // If no escape move, enemy is trapped - player wins on next move
   }
 
   return (
@@ -156,6 +237,7 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
           <ChessBoard
             showValidMoves={true}
             onMoveComplete={handleMoveComplete}
+            disabled={isAIMoving}
           />
         </div>
       </div>
