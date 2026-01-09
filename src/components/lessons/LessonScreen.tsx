@@ -32,6 +32,7 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
   const [showCelebration, setShowCelebration] = useState(false)
   const [celebrationType, setCelebrationType] = useState<'stars' | 'confetti' | 'fireworks'>('stars')
   const [isAIMoving, setIsAIMoving] = useState(false)
+  const [isTransitioning, setIsTransitioning] = useState(false)
   const enemyPositionRef = useRef<Position | null>(null)
 
   const step = getCurrentStep()
@@ -100,6 +101,7 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
       const enemyPos = enemyPositionRef.current
       if (enemyPos && positionsEqual(to, enemyPos)) {
         // Player caught the enemy!
+        setIsTransitioning(true)
         enemyPositionRef.current = null
         playFireworksSound()
         markPieceComplete(piece)
@@ -133,12 +135,13 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
     // Check completion conditions
     let shouldAdvance = false
     if (currentStep.type === 'practice') {
-      shouldAdvance = currentMoves >= (currentStep.requiredMoves || 10)
+      shouldAdvance = currentMoves >= (currentStep.requiredMoves || 5)
     } else if (currentStep.type === 'challenge') {
       shouldAdvance = currentTargets.length === 0
     }
 
     if (shouldAdvance) {
+      setIsTransitioning(true)
       setTimeout(() => {
         if (currentStep.type === 'challenge') {
           // Challenge complete - show confetti and move to chase (if not pawn)
@@ -151,6 +154,7 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
             const lesson = getLessonForPiece(piece)
             if (lesson.steps.length > 2) {
               nextStep()
+              setIsTransitioning(false)
             } else {
               // Pawn - no chase step, complete the lesson
               playFireworksSound()
@@ -171,6 +175,7 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
           setTimeout(() => {
             setShowCelebration(false)
             nextStep()
+            setIsTransitioning(false)
           }, 2000)
         }
       }, 500)
@@ -229,7 +234,7 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
             initial={{ scale: 1.2 }}
             animate={{ scale: 1 }}
           >
-            {movesMade} / {step.requiredMoves || 10}
+            {movesMade} / {step.requiredMoves || 5}
           </motion.div>
         )}
 
@@ -237,7 +242,7 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
           <ChessBoard
             showValidMoves={true}
             onMoveComplete={handleMoveComplete}
-            disabled={isAIMoving}
+            disabled={isAIMoving || isTransitioning}
           />
         </div>
       </div>

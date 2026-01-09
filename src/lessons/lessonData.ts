@@ -34,7 +34,7 @@ const rookLessons: PieceLesson = {
       boardSize: 8,
       pieces: [{ piece: { type: 'rook', color: 'white' }, position: { row: 4, col: 4 } }],
       showValidMoves: true,
-      requiredMoves: 10
+      requiredMoves: 5
     },
     {
       id: 'rook-challenge',
@@ -68,7 +68,7 @@ const bishopLessons: PieceLesson = {
       boardSize: 8,
       pieces: [{ piece: { type: 'bishop', color: 'white' }, position: { row: 4, col: 4 } }],
       showValidMoves: true,
-      requiredMoves: 10
+      requiredMoves: 5
     },
     {
       id: 'bishop-challenge',
@@ -102,7 +102,7 @@ const queenLessons: PieceLesson = {
       boardSize: 8,
       pieces: [{ piece: { type: 'queen', color: 'white' }, position: { row: 4, col: 4 } }],
       showValidMoves: true,
-      requiredMoves: 10
+      requiredMoves: 5
     },
     {
       id: 'queen-challenge',
@@ -136,7 +136,7 @@ const kingLessons: PieceLesson = {
       boardSize: 8,
       pieces: [{ piece: { type: 'king', color: 'white' }, position: { row: 4, col: 4 } }],
       showValidMoves: true,
-      requiredMoves: 10
+      requiredMoves: 5
     },
     {
       id: 'king-challenge',
@@ -170,7 +170,7 @@ const knightLessons: PieceLesson = {
       boardSize: 8,
       pieces: [{ piece: { type: 'knight', color: 'white' }, position: { row: 4, col: 4 } }],
       showValidMoves: true,
-      requiredMoves: 10
+      requiredMoves: 5
     },
     {
       id: 'knight-challenge',
@@ -204,7 +204,7 @@ const pawnLessons: PieceLesson = {
       boardSize: 8,
       pieces: [{ piece: { type: 'pawn', color: 'white' }, position: { row: 6, col: 4 } }],
       showValidMoves: true,
-      requiredMoves: 10
+      requiredMoves: 5
     },
     {
       id: 'pawn-challenge',
