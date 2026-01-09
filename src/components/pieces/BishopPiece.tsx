@@ -9,26 +9,32 @@ export function BishopPiece({ color }: PieceProps) {
   return (
     <svg viewBox="0 0 100 100">
       {/* Base */}
-      <ellipse cx="50" cy="85" rx="25" ry="8" fill={fill} stroke={stroke} strokeWidth="3" />
+      <ellipse cx="50" cy="88" rx="28" ry="7" fill={fill} stroke={stroke} strokeWidth="2.5" />
+
+      {/* Lower collar */}
+      <ellipse cx="50" cy="78" rx="20" ry="5" fill={fill} stroke={stroke} strokeWidth="2.5" />
 
       {/* Body */}
       <path
-        d="M 35 80 Q 30 60 35 45 Q 40 30 50 20 Q 60 30 65 45 Q 70 60 65 80 Z"
+        d="M 32 78 Q 28 60 35 45 L 50 25 L 65 45 Q 72 60 68 78 Z"
         fill={fill}
         stroke={stroke}
-        strokeWidth="3"
+        strokeWidth="2.5"
       />
 
-      {/* Hat tip */}
-      <circle cx="50" cy="15" r="8" fill={fill} stroke={stroke} strokeWidth="3" />
+      {/* Head/Mitre */}
+      <path
+        d="M 42 28 Q 42 18 50 10 Q 58 18 58 28 Z"
+        fill={fill}
+        stroke={stroke}
+        strokeWidth="2.5"
+      />
 
-      {/* Slit */}
-      <path d="M 45 35 L 55 35" stroke={stroke} strokeWidth="3" strokeLinecap="round" />
+      {/* Ball on top */}
+      <circle cx="50" cy="10" r="5" fill={fill} stroke={stroke} strokeWidth="2.5" />
 
-      {/* Friendly face */}
-      <circle cx="42" cy="55" r="4" fill={stroke} />
-      <circle cx="58" cy="55" r="4" fill={stroke} />
-      <path d="M 42 68 Q 50 75 58 68" stroke={stroke} strokeWidth="3" fill="none" strokeLinecap="round" />
+      {/* Diagonal slit */}
+      <path d="M 44 32 L 56 45" stroke={stroke} strokeWidth="3" strokeLinecap="round" />
     </svg>
   )
 }

@@ -9,27 +9,27 @@ export function KingPiece({ color }: PieceProps) {
   return (
     <svg viewBox="0 0 100 100">
       {/* Base */}
-      <ellipse cx="50" cy="88" rx="28" ry="8" fill={fill} stroke={stroke} strokeWidth="3" />
+      <ellipse cx="50" cy="88" rx="28" ry="7" fill={fill} stroke={stroke} strokeWidth="2.5" />
+
+      {/* Lower collar */}
+      <ellipse cx="50" cy="78" rx="22" ry="5" fill={fill} stroke={stroke} strokeWidth="2.5" />
 
       {/* Body */}
       <path
-        d="M 28 85 Q 22 70 28 50 Q 35 35 50 30 Q 65 35 72 50 Q 78 70 72 85 Z"
+        d="M 30 78 Q 22 60 30 45 Q 38 32 50 28 Q 62 32 70 45 Q 78 60 70 78 Z"
         fill={fill}
         stroke={stroke}
-        strokeWidth="3"
+        strokeWidth="2.5"
       />
 
-      {/* Cross on top */}
-      <rect x="46" y="8" width="8" height="25" rx="2" fill={fill} stroke={stroke} strokeWidth="3" />
-      <rect x="38" y="12" width="24" height="8" rx="2" fill={fill} stroke={stroke} strokeWidth="3" />
+      {/* Crown band */}
+      <ellipse cx="50" cy="32" rx="18" ry="6" fill={fill} stroke={stroke} strokeWidth="2.5" />
 
-      {/* Friendly face */}
-      <circle cx="40" cy="55" r="4" fill={stroke} />
-      <circle cx="60" cy="55" r="4" fill={stroke} />
-      <path d="M 40 68 Q 50 76 60 68" stroke={stroke} strokeWidth="3" fill="none" strokeLinecap="round" />
+      {/* Cross - vertical */}
+      <rect x="46" y="5" width="8" height="30" rx="2" fill={fill} stroke={stroke} strokeWidth="2.5" />
 
-      {/* Crown jewel */}
-      <circle cx="50" cy="16" r="3" fill="#F39C12" />
+      {/* Cross - horizontal */}
+      <rect x="36" y="12" width="28" height="8" rx="2" fill={fill} stroke={stroke} strokeWidth="2.5" />
     </svg>
   )
 }

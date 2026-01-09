@@ -9,36 +9,32 @@ export function QueenPiece({ color }: PieceProps) {
   return (
     <svg viewBox="0 0 100 100">
       {/* Base */}
-      <ellipse cx="50" cy="88" rx="28" ry="8" fill={fill} stroke={stroke} strokeWidth="3" />
+      <ellipse cx="50" cy="88" rx="28" ry="7" fill={fill} stroke={stroke} strokeWidth="2.5" />
+
+      {/* Lower collar */}
+      <ellipse cx="50" cy="78" rx="22" ry="5" fill={fill} stroke={stroke} strokeWidth="2.5" />
 
       {/* Body */}
       <path
-        d="M 25 85 Q 22 70 28 55 L 50 35 L 72 55 Q 78 70 75 85 Z"
+        d="M 30 78 Q 25 60 32 45 L 50 38 L 68 45 Q 75 60 70 78 Z"
         fill={fill}
         stroke={stroke}
-        strokeWidth="3"
+        strokeWidth="2.5"
       />
 
-      {/* Crown points */}
-      <circle cx="25" cy="25" r="6" fill={fill} stroke={stroke} strokeWidth="3" />
-      <circle cx="50" cy="15" r="7" fill={fill} stroke={stroke} strokeWidth="3" />
-      <circle cx="75" cy="25" r="6" fill={fill} stroke={stroke} strokeWidth="3" />
-
-      {/* Crown connectors */}
+      {/* Crown spikes */}
       <path
-        d="M 25 30 L 28 55 M 50 22 L 50 35 M 75 30 L 72 55"
+        d="M 32 45 L 20 20 L 35 35 L 50 12 L 65 35 L 80 20 L 68 45"
+        fill={fill}
         stroke={stroke}
-        strokeWidth="3"
-        strokeLinecap="round"
+        strokeWidth="2.5"
+        strokeLinejoin="round"
       />
 
-      {/* Friendly face */}
-      <circle cx="40" cy="60" r="4" fill={stroke} />
-      <circle cx="60" cy="60" r="4" fill={stroke} />
-      <path d="M 40 72 Q 50 80 60 72" stroke={stroke} strokeWidth="3" fill="none" strokeLinecap="round" />
-
-      {/* Crown jewels */}
-      <circle cx="50" cy="15" r="3" fill="#E91E63" />
+      {/* Crown balls */}
+      <circle cx="20" cy="18" r="5" fill={fill} stroke={stroke} strokeWidth="2.5" />
+      <circle cx="50" cy="10" r="6" fill={fill} stroke={stroke} strokeWidth="2.5" />
+      <circle cx="80" cy="18" r="5" fill={fill} stroke={stroke} strokeWidth="2.5" />
     </svg>
   )
 }

@@ -9,20 +9,26 @@ export function RookPiece({ color }: PieceProps) {
   return (
     <svg viewBox="0 0 100 100">
       {/* Base */}
-      <rect x="20" y="70" width="60" height="20" rx="5" fill={fill} stroke={stroke} strokeWidth="3" />
+      <rect x="20" y="80" width="60" height="12" rx="2" fill={fill} stroke={stroke} strokeWidth="2.5" />
 
-      {/* Body */}
-      <rect x="25" y="40" width="50" height="35" rx="5" fill={fill} stroke={stroke} strokeWidth="3" />
+      {/* Lower body */}
+      <rect x="25" y="65" width="50" height="18" fill={fill} stroke={stroke} strokeWidth="2.5" />
+
+      {/* Middle section */}
+      <path
+        d="M 28 65 L 32 45 L 68 45 L 72 65 Z"
+        fill={fill}
+        stroke={stroke}
+        strokeWidth="2.5"
+      />
+
+      {/* Upper body */}
+      <rect x="30" y="30" width="40" height="18" fill={fill} stroke={stroke} strokeWidth="2.5" />
 
       {/* Battlements */}
-      <rect x="20" y="20" width="15" height="25" rx="3" fill={fill} stroke={stroke} strokeWidth="3" />
-      <rect x="42" y="20" width="16" height="25" rx="3" fill={fill} stroke={stroke} strokeWidth="3" />
-      <rect x="65" y="20" width="15" height="25" rx="3" fill={fill} stroke={stroke} strokeWidth="3" />
-
-      {/* Friendly face */}
-      <circle cx="40" cy="55" r="4" fill={stroke} />
-      <circle cx="60" cy="55" r="4" fill={stroke} />
-      <path d="M 40 65 Q 50 72 60 65" stroke={stroke} strokeWidth="3" fill="none" strokeLinecap="round" />
+      <rect x="28" y="15" width="12" height="18" fill={fill} stroke={stroke} strokeWidth="2.5" />
+      <rect x="44" y="15" width="12" height="18" fill={fill} stroke={stroke} strokeWidth="2.5" />
+      <rect x="60" y="15" width="12" height="18" fill={fill} stroke={stroke} strokeWidth="2.5" />
     </svg>
   )
 }

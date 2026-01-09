@@ -9,23 +9,32 @@ export function PawnPiece({ color }: PieceProps) {
   return (
     <svg viewBox="0 0 100 100">
       {/* Base */}
-      <ellipse cx="50" cy="88" rx="25" ry="8" fill={fill} stroke={stroke} strokeWidth="3" />
+      <ellipse cx="50" cy="88" rx="28" ry="7" fill={fill} stroke={stroke} strokeWidth="2.5" />
 
-      {/* Body */}
+      {/* Lower body */}
       <path
-        d="M 30 85 Q 28 70 35 55 Q 40 45 50 42 Q 60 45 65 55 Q 72 70 70 85 Z"
+        d="M 25 88 Q 22 78 28 70 L 72 70 Q 78 78 75 88 Z"
         fill={fill}
         stroke={stroke}
-        strokeWidth="3"
+        strokeWidth="2.5"
       />
 
-      {/* Head */}
-      <circle cx="50" cy="28" r="18" fill={fill} stroke={stroke} strokeWidth="3" />
+      {/* Middle collar */}
+      <ellipse cx="50" cy="68" rx="18" ry="5" fill={fill} stroke={stroke} strokeWidth="2.5" />
 
-      {/* Friendly face */}
-      <circle cx="44" cy="26" r="3" fill={stroke} />
-      <circle cx="56" cy="26" r="3" fill={stroke} />
-      <path d="M 44 35 Q 50 40 56 35" stroke={stroke} strokeWidth="3" fill="none" strokeLinecap="round" />
+      {/* Neck/stem */}
+      <path
+        d="M 35 68 Q 32 55 38 45 L 62 45 Q 68 55 65 68 Z"
+        fill={fill}
+        stroke={stroke}
+        strokeWidth="2.5"
+      />
+
+      {/* Upper collar */}
+      <ellipse cx="50" cy="45" rx="14" ry="4" fill={fill} stroke={stroke} strokeWidth="2.5" />
+
+      {/* Head */}
+      <circle cx="50" cy="28" r="16" fill={fill} stroke={stroke} strokeWidth="2.5" />
     </svg>
   )
 }
