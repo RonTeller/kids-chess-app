@@ -7,12 +7,8 @@ interface LessonPromptProps {
 }
 
 const prompts: Record<LessonStepType, (name: string) => string> = {
-  intro: (name) => `Meet ${name}!`,
-  demo: () => `Watch where I can go!`,
-  guided: () => `Tap where I can move!`,
-  practice: () => `You try! Move me around!`,
-  challenge: () => `Catch the stars!`,
-  celebration: () => `Great job!`
+  practice: () => `Move me around!`,
+  challenge: () => `Catch the stars!`
 }
 
 export function LessonPrompt({ stepType, pieceName }: LessonPromptProps) {

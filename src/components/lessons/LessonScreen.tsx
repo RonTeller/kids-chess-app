@@ -15,7 +15,7 @@ interface LessonScreenProps {
 }
 
 export function LessonScreen({ onBack }: LessonScreenProps) {
-  const { setupBoard, targets } = useGameStore()
+  const { setupBoard } = useGameStore()
   const {
     currentPiece,
     currentStepIndex,
@@ -23,8 +23,7 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
     getCurrentStep,
     nextStep,
     incrementMoves,
-    markPieceComplete,
-    isLastStep
+    markPieceComplete
   } = useLessonStore()
 
   const [showCelebration, setShowCelebration] = useState(false)
@@ -33,7 +32,7 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
   const step = getCurrentStep()
   const lesson = getLessonForPiece(currentPiece)
 
-  // Setup board when step changes - always use 8x8 board
+  // Setup board when step changes
   useEffect(() => {
     setupBoard({
       boardSize: 8,
@@ -60,18 +59,12 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
       setTimeout(() => setShowCelebration(false), 1500)
     }
 
-    // Check completion conditions based on step type
+    // Check completion conditions
     let shouldAdvance = false
-    switch (currentStep.type) {
-      case 'guided':
-        shouldAdvance = currentMoves >= 1
-        break
-      case 'practice':
-        shouldAdvance = currentMoves >= (currentStep.requiredMoves || 3)
-        break
-      case 'challenge':
-        shouldAdvance = currentTargets.length === 0
-        break
+    if (currentStep.type === 'practice') {
+      shouldAdvance = currentMoves >= (currentStep.requiredMoves || 10)
+    } else if (currentStep.type === 'challenge') {
+      shouldAdvance = currentTargets.length === 0
     }
 
     if (shouldAdvance) {
@@ -85,40 +78,16 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
             setShowCelebration(false)
             onBack()
           }, 3000)
-        } else if (currentStep.type === 'practice') {
+        } else {
+          // Practice complete - show confetti and move to challenge
           setCelebrationType('confetti')
           setShowCelebration(true)
           setTimeout(() => {
             setShowCelebration(false)
-            advanceStep()
+            nextStep()
           }, 2000)
-        } else {
-          advanceStep()
         }
       }, 500)
-    }
-  }
-
-  const advanceStep = () => {
-    if (isLastStep()) {
-      markPieceComplete(currentPiece)
-      setCelebrationType('fireworks')
-      setShowCelebration(true)
-      setTimeout(() => {
-        setShowCelebration(false)
-        onBack()
-      }, 3000)
-    } else {
-      nextStep()
-    }
-  }
-
-  const handleContinue = () => {
-    if (step.type === 'intro' || step.type === 'demo') {
-      advanceStep()
-    } else if (step.type === 'celebration') {
-      markPieceComplete(currentPiece)
-      onBack()
     }
   }
 
@@ -141,30 +110,23 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
       <div className="lesson-content">
         <LessonPrompt stepType={step.type} pieceName={lesson.friendlyName} />
 
+        {step.type === 'practice' && (
+          <motion.div
+            className="move-counter"
+            key={movesMade}
+            initial={{ scale: 1.2 }}
+            animate={{ scale: 1 }}
+          >
+            {movesMade} / {step.requiredMoves || 10}
+          </motion.div>
+        )}
+
         <div className="lesson-board-container">
           <ChessBoard
             showValidMoves={true}
-            onMoveComplete={
-              // Only allow moves during interactive steps (not intro/demo/celebration)
-              step.type === 'guided' || step.type === 'practice' || step.type === 'challenge'
-                ? handleMoveComplete
-                : undefined
-            }
+            onMoveComplete={handleMoveComplete}
           />
         </div>
-
-        {(step.type === 'intro' || step.type === 'demo' || step.type === 'celebration') && (
-          <motion.button
-            className="big-button big-button--primary continue-button"
-            onClick={handleContinue}
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            {step.type === 'celebration' ? 'Done!' : 'Next'}
-          </motion.button>
-        )}
       </div>
 
       <AnimatePresence>
