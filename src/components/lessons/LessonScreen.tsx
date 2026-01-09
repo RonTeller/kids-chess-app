@@ -43,6 +43,10 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
     const targets: Position[] = []
     const pieceKey = `${piecePosition.row},${piecePosition.col}`
 
+    // For bishops, targets must be on same color squares (same parity of row+col)
+    const isBishop = currentPiece === 'bishop'
+    const bishopParity = (piecePosition.row + piecePosition.col) % 2
+
     while (targets.length < count) {
       const row = Math.floor(Math.random() * 8)
       const col = Math.floor(Math.random() * 8)
@@ -50,7 +54,11 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
 
       // Make sure target doesn't overlap with piece or other targets
       const isOccupied = key === pieceKey || targets.some(t => t.row === row && t.col === col)
-      if (!isOccupied) {
+
+      // For bishops, ensure target is on a reachable square (same color)
+      const isReachable = !isBishop || (row + col) % 2 === bishopParity
+
+      if (!isOccupied && isReachable) {
         targets.push({ row, col })
       }
     }
