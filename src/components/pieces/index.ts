@@ -1,0 +1,6 @@
+export { RookPiece } from './RookPiece'
+export { BishopPiece } from './BishopPiece'
+export { KnightPiece } from './KnightPiece'
+export { QueenPiece } from './QueenPiece'
+export { KingPiece } from './KingPiece'
+export { PawnPiece } from './PawnPiece'

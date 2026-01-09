@@ -1,0 +1,130 @@
+:root {
+  /* Primary colors - warm and inviting */
+  --color-primary: #FF6B6B;
+  --color-secondary: #4ECDC4;
+  --color-accent: #FFE66D;
+
+  /* Piece-specific theme colors */
+  --color-rook: #4A90D9;
+  --color-bishop: #9B59B6;
+  --color-knight: #27AE60;
+  --color-queen: #E91E63;
+  --color-king: #F39C12;
+  --color-pawn: #3498DB;
+
+  /* Board colors - soft, not harsh */
+  --board-light: #FFF8DC;
+  --board-dark: #DEB887;
+  --board-border: #8B4513;
+
+  /* Feedback colors */
+  --color-success: #2ECC71;
+  --color-highlight: #F1C40F;
+  --color-target: #FF69B4;
+  --color-valid-move: #90EE90;
+
+  /* Background */
+  --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+  /* Typography */
+  --font-family: 'Nunito', 'Comic Sans MS', cursive, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-family);
+  font-weight: 700;
+  background: var(--bg-gradient);
+  color: white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Large touch-friendly buttons */
+.big-button {
+  min-width: 80px;
+  min-height: 80px;
+  padding: 20px 32px;
+  border-radius: 20px;
+  font-size: 24px;
+  font-weight: 800;
+  font-family: var(--font-family);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.2), 0 8px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.1s, box-shadow 0.1s;
+  touch-action: manipulation;
+}
+
+.big-button:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2), 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.big-button--primary {
+  background: linear-gradient(180deg, #FF6B6B 0%, #E55555 100%);
+  color: white;
+}
+
+.big-button--secondary {
+  background: linear-gradient(180deg, #4ECDC4 0%, #3DBDB5 100%);
+  color: white;
+}
+
+.big-button--success {
+  background: linear-gradient(180deg, #2ECC71 0%, #27AE60 100%);
+  color: white;
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 10px 5px rgba(144, 238, 144, 0.5); }
+  50% { box-shadow: 0 0 20px 10px rgba(144, 238, 144, 0.8); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-5px) rotate(2deg); }
+  75% { transform: translateY(5px) rotate(-2deg); }
+}
