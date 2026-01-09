@@ -7,6 +7,7 @@ import { LessonPrompt } from './LessonPrompt'
 import { useGameStore } from '../../stores/gameStore'
 import { useLessonStore } from '../../stores/lessonStore'
 import { getLessonForPiece } from '../../lessons/lessonData'
+import { playMoveSound, playStarSound, playCelebrationSound, playFireworksSound } from '../../audio/sounds'
 import type { Position } from '../../chess/types'
 import './LessonScreen.css'
 
@@ -54,9 +55,12 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
     const hitTarget = currentStep.targets?.some(t => t.row === to.row && t.col === to.col)
 
     if (hitTarget) {
+      playStarSound()
       setCelebrationType('stars')
       setShowCelebration(true)
       setTimeout(() => setShowCelebration(false), 1500)
+    } else {
+      playMoveSound()
     }
 
     // Check completion conditions
@@ -71,6 +75,7 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
       setTimeout(() => {
         if (currentStep.type === 'challenge') {
           // Challenge complete - show fireworks and go back to home
+          playFireworksSound()
           markPieceComplete(piece)
           setCelebrationType('fireworks')
           setShowCelebration(true)
@@ -80,6 +85,7 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
           }, 3000)
         } else {
           // Practice complete - show confetti and move to challenge
+          playCelebrationSound()
           setCelebrationType('confetti')
           setShowCelebration(true)
           setTimeout(() => {
