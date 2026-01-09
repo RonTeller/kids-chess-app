@@ -33,10 +33,10 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
   const step = getCurrentStep()
   const lesson = getLessonForPiece(currentPiece)
 
-  // Setup board when step changes
+  // Setup board when step changes - always use 8x8 board
   useEffect(() => {
     setupBoard({
-      boardSize: step.boardSize,
+      boardSize: 8,
       pieces: step.pieces,
       targets: step.targets
     })
@@ -139,7 +139,7 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
 
         <div className="lesson-board-container">
           <ChessBoard
-            showValidMoves={step.showValidMoves}
+            showValidMoves={true}
             onMoveComplete={handleMoveComplete}
           />
         </div>

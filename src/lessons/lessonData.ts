@@ -31,46 +31,46 @@ const rookLessons: PieceLesson = {
     {
       id: 'rook-intro',
       type: 'intro',
-      boardSize: 4,
-      pieces: [{ piece: { type: 'rook', color: 'white' }, position: { row: 1, col: 1 } }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'rook', color: 'white' }, position: { row: 3, col: 3 } }],
       showValidMoves: false
     },
     {
       id: 'rook-demo',
       type: 'demo',
-      boardSize: 4,
-      pieces: [{ piece: { type: 'rook', color: 'white' }, position: { row: 1, col: 0 } }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'rook', color: 'white' }, position: { row: 3, col: 0 } }],
       showValidMoves: true,
-      demoPath: [{ row: 1, col: 0 }, { row: 1, col: 1 }, { row: 1, col: 2 }, { row: 1, col: 3 }]
+      demoPath: [{ row: 3, col: 0 }, { row: 3, col: 3 }, { row: 3, col: 7 }]
     },
     {
       id: 'rook-guided',
       type: 'guided',
-      boardSize: 4,
-      pieces: [{ piece: { type: 'rook', color: 'white' }, position: { row: 2, col: 2 } }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'rook', color: 'white' }, position: { row: 4, col: 4 } }],
       showValidMoves: true
     },
     {
       id: 'rook-practice',
       type: 'practice',
-      boardSize: 6,
-      pieces: [{ piece: { type: 'rook', color: 'white' }, position: { row: 3, col: 3 } }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'rook', color: 'white' }, position: { row: 4, col: 4 } }],
       showValidMoves: false,
       requiredMoves: 3
     },
     {
       id: 'rook-challenge',
       type: 'challenge',
-      boardSize: 6,
+      boardSize: 8,
       pieces: [{ piece: { type: 'rook', color: 'white' }, position: { row: 0, col: 0 } }],
-      targets: [{ row: 0, col: 5 }, { row: 5, col: 0 }],
+      targets: [{ row: 0, col: 7 }, { row: 7, col: 0 }],
       showValidMoves: false
     },
     {
       id: 'rook-celebration',
       type: 'celebration',
-      boardSize: 4,
-      pieces: [{ piece: { type: 'rook', color: 'white' }, position: { row: 1, col: 1 } }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'rook', color: 'white' }, position: { row: 3, col: 3 } }],
       showValidMoves: false
     }
   ]
@@ -86,46 +86,46 @@ const bishopLessons: PieceLesson = {
     {
       id: 'bishop-intro',
       type: 'intro',
-      boardSize: 4,
-      pieces: [{ piece: { type: 'bishop', color: 'white' }, position: { row: 1, col: 1 } }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'bishop', color: 'white' }, position: { row: 3, col: 3 } }],
       showValidMoves: false
     },
     {
       id: 'bishop-demo',
       type: 'demo',
-      boardSize: 4,
+      boardSize: 8,
       pieces: [{ piece: { type: 'bishop', color: 'white' }, position: { row: 0, col: 0 } }],
       showValidMoves: true,
-      demoPath: [{ row: 0, col: 0 }, { row: 1, col: 1 }, { row: 2, col: 2 }, { row: 3, col: 3 }]
+      demoPath: [{ row: 0, col: 0 }, { row: 3, col: 3 }, { row: 7, col: 7 }]
     },
     {
       id: 'bishop-guided',
       type: 'guided',
-      boardSize: 4,
-      pieces: [{ piece: { type: 'bishop', color: 'white' }, position: { row: 2, col: 1 } }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'bishop', color: 'white' }, position: { row: 4, col: 3 } }],
       showValidMoves: true
     },
     {
       id: 'bishop-practice',
       type: 'practice',
-      boardSize: 6,
-      pieces: [{ piece: { type: 'bishop', color: 'white' }, position: { row: 3, col: 3 } }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'bishop', color: 'white' }, position: { row: 4, col: 4 } }],
       showValidMoves: false,
       requiredMoves: 3
     },
     {
       id: 'bishop-challenge',
       type: 'challenge',
-      boardSize: 6,
-      pieces: [{ piece: { type: 'bishop', color: 'white' }, position: { row: 0, col: 2 } }],
-      targets: [{ row: 2, col: 0 }, { row: 2, col: 4 }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'bishop', color: 'white' }, position: { row: 0, col: 3 } }],
+      targets: [{ row: 3, col: 0 }, { row: 3, col: 6 }],
       showValidMoves: false
     },
     {
       id: 'bishop-celebration',
       type: 'celebration',
-      boardSize: 4,
-      pieces: [{ piece: { type: 'bishop', color: 'white' }, position: { row: 1, col: 1 } }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'bishop', color: 'white' }, position: { row: 3, col: 3 } }],
       showValidMoves: false
     }
   ]
@@ -141,45 +141,45 @@ const queenLessons: PieceLesson = {
     {
       id: 'queen-intro',
       type: 'intro',
-      boardSize: 4,
-      pieces: [{ piece: { type: 'queen', color: 'white' }, position: { row: 1, col: 1 } }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'queen', color: 'white' }, position: { row: 3, col: 3 } }],
       showValidMoves: false
     },
     {
       id: 'queen-demo',
       type: 'demo',
-      boardSize: 4,
-      pieces: [{ piece: { type: 'queen', color: 'white' }, position: { row: 2, col: 2 } }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'queen', color: 'white' }, position: { row: 4, col: 4 } }],
       showValidMoves: true
     },
     {
       id: 'queen-guided',
       type: 'guided',
-      boardSize: 4,
-      pieces: [{ piece: { type: 'queen', color: 'white' }, position: { row: 2, col: 2 } }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'queen', color: 'white' }, position: { row: 4, col: 4 } }],
       showValidMoves: true
     },
     {
       id: 'queen-practice',
       type: 'practice',
-      boardSize: 6,
-      pieces: [{ piece: { type: 'queen', color: 'white' }, position: { row: 3, col: 3 } }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'queen', color: 'white' }, position: { row: 4, col: 4 } }],
       showValidMoves: false,
       requiredMoves: 3
     },
     {
       id: 'queen-challenge',
       type: 'challenge',
-      boardSize: 6,
+      boardSize: 8,
       pieces: [{ piece: { type: 'queen', color: 'white' }, position: { row: 0, col: 0 } }],
-      targets: [{ row: 0, col: 5 }, { row: 5, col: 5 }, { row: 3, col: 3 }],
+      targets: [{ row: 0, col: 7 }, { row: 7, col: 7 }, { row: 4, col: 4 }],
       showValidMoves: false
     },
     {
       id: 'queen-celebration',
       type: 'celebration',
-      boardSize: 4,
-      pieces: [{ piece: { type: 'queen', color: 'white' }, position: { row: 1, col: 1 } }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'queen', color: 'white' }, position: { row: 3, col: 3 } }],
       showValidMoves: false
     }
   ]
@@ -195,36 +195,36 @@ const kingLessons: PieceLesson = {
     {
       id: 'king-intro',
       type: 'intro',
-      boardSize: 4,
-      pieces: [{ piece: { type: 'king', color: 'white' }, position: { row: 1, col: 1 } }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'king', color: 'white' }, position: { row: 3, col: 3 } }],
       showValidMoves: false
     },
     {
       id: 'king-demo',
       type: 'demo',
-      boardSize: 4,
-      pieces: [{ piece: { type: 'king', color: 'white' }, position: { row: 2, col: 2 } }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'king', color: 'white' }, position: { row: 4, col: 4 } }],
       showValidMoves: true
     },
     {
       id: 'king-guided',
       type: 'guided',
-      boardSize: 4,
-      pieces: [{ piece: { type: 'king', color: 'white' }, position: { row: 2, col: 2 } }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'king', color: 'white' }, position: { row: 4, col: 4 } }],
       showValidMoves: true
     },
     {
       id: 'king-practice',
       type: 'practice',
-      boardSize: 6,
-      pieces: [{ piece: { type: 'king', color: 'white' }, position: { row: 3, col: 3 } }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'king', color: 'white' }, position: { row: 4, col: 4 } }],
       showValidMoves: false,
       requiredMoves: 3
     },
     {
       id: 'king-challenge',
       type: 'challenge',
-      boardSize: 4,
+      boardSize: 8,
       pieces: [{ piece: { type: 'king', color: 'white' }, position: { row: 0, col: 0 } }],
       targets: [{ row: 1, col: 1 }, { row: 2, col: 2 }, { row: 3, col: 3 }],
       showValidMoves: false
@@ -232,8 +232,8 @@ const kingLessons: PieceLesson = {
     {
       id: 'king-celebration',
       type: 'celebration',
-      boardSize: 4,
-      pieces: [{ piece: { type: 'king', color: 'white' }, position: { row: 1, col: 1 } }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'king', color: 'white' }, position: { row: 3, col: 3 } }],
       showValidMoves: false
     }
   ]
@@ -249,36 +249,36 @@ const knightLessons: PieceLesson = {
     {
       id: 'knight-intro',
       type: 'intro',
-      boardSize: 6,
-      pieces: [{ piece: { type: 'knight', color: 'white' }, position: { row: 2, col: 2 } }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'knight', color: 'white' }, position: { row: 3, col: 3 } }],
       showValidMoves: false
     },
     {
       id: 'knight-demo',
       type: 'demo',
-      boardSize: 6,
-      pieces: [{ piece: { type: 'knight', color: 'white' }, position: { row: 3, col: 3 } }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'knight', color: 'white' }, position: { row: 4, col: 4 } }],
       showValidMoves: true
     },
     {
       id: 'knight-guided',
       type: 'guided',
-      boardSize: 6,
-      pieces: [{ piece: { type: 'knight', color: 'white' }, position: { row: 3, col: 3 } }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'knight', color: 'white' }, position: { row: 4, col: 4 } }],
       showValidMoves: true
     },
     {
       id: 'knight-practice',
       type: 'practice',
-      boardSize: 6,
-      pieces: [{ piece: { type: 'knight', color: 'white' }, position: { row: 3, col: 3 } }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'knight', color: 'white' }, position: { row: 4, col: 4 } }],
       showValidMoves: false,
       requiredMoves: 3
     },
     {
       id: 'knight-challenge',
       type: 'challenge',
-      boardSize: 6,
+      boardSize: 8,
       pieces: [{ piece: { type: 'knight', color: 'white' }, position: { row: 0, col: 0 } }],
       targets: [{ row: 2, col: 1 }, { row: 4, col: 2 }],
       showValidMoves: false
@@ -286,8 +286,8 @@ const knightLessons: PieceLesson = {
     {
       id: 'knight-celebration',
       type: 'celebration',
-      boardSize: 6,
-      pieces: [{ piece: { type: 'knight', color: 'white' }, position: { row: 2, col: 2 } }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'knight', color: 'white' }, position: { row: 3, col: 3 } }],
       showValidMoves: false
     }
   ]
@@ -303,46 +303,46 @@ const pawnLessons: PieceLesson = {
     {
       id: 'pawn-intro',
       type: 'intro',
-      boardSize: 4,
-      pieces: [{ piece: { type: 'pawn', color: 'white' }, position: { row: 2, col: 1 } }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'pawn', color: 'white' }, position: { row: 5, col: 3 } }],
       showValidMoves: false
     },
     {
       id: 'pawn-demo',
       type: 'demo',
-      boardSize: 4,
-      pieces: [{ piece: { type: 'pawn', color: 'white' }, position: { row: 3, col: 1 } }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'pawn', color: 'white' }, position: { row: 6, col: 3 } }],
       showValidMoves: true,
-      demoPath: [{ row: 3, col: 1 }, { row: 2, col: 1 }, { row: 1, col: 1 }, { row: 0, col: 1 }]
+      demoPath: [{ row: 6, col: 3 }, { row: 5, col: 3 }, { row: 4, col: 3 }, { row: 3, col: 3 }]
     },
     {
       id: 'pawn-guided',
       type: 'guided',
-      boardSize: 4,
-      pieces: [{ piece: { type: 'pawn', color: 'white' }, position: { row: 3, col: 2 } }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'pawn', color: 'white' }, position: { row: 6, col: 4 } }],
       showValidMoves: true
     },
     {
       id: 'pawn-practice',
       type: 'practice',
-      boardSize: 6,
-      pieces: [{ piece: { type: 'pawn', color: 'white' }, position: { row: 5, col: 3 } }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'pawn', color: 'white' }, position: { row: 6, col: 3 } }],
       showValidMoves: false,
       requiredMoves: 3
     },
     {
       id: 'pawn-challenge',
       type: 'challenge',
-      boardSize: 6,
-      pieces: [{ piece: { type: 'pawn', color: 'white' }, position: { row: 5, col: 2 } }],
-      targets: [{ row: 4, col: 3 }, { row: 3, col: 2 }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'pawn', color: 'white' }, position: { row: 6, col: 3 } }],
+      targets: [{ row: 5, col: 4 }, { row: 4, col: 3 }],
       showValidMoves: false
     },
     {
       id: 'pawn-celebration',
       type: 'celebration',
-      boardSize: 4,
-      pieces: [{ piece: { type: 'pawn', color: 'white' }, position: { row: 2, col: 1 } }],
+      boardSize: 8,
+      pieces: [{ piece: { type: 'pawn', color: 'white' }, position: { row: 4, col: 3 } }],
       showValidMoves: false
     }
   ]
