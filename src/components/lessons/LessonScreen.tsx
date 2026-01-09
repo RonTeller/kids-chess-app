@@ -58,7 +58,16 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
     const shouldAdvance = checkStepComplete()
     if (shouldAdvance) {
       setTimeout(() => {
-        if (step.type === 'challenge' || step.type === 'practice') {
+        if (step.type === 'challenge') {
+          // Challenge complete - show fireworks and go back to home
+          markPieceComplete(currentPiece)
+          setCelebrationType('fireworks')
+          setShowCelebration(true)
+          setTimeout(() => {
+            setShowCelebration(false)
+            onBack()
+          }, 3000)
+        } else if (step.type === 'practice') {
           setCelebrationType('confetti')
           setShowCelebration(true)
           setTimeout(() => {
