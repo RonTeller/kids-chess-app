@@ -10,12 +10,12 @@
   },
   "pieces": {
     "rook": {
-      "name": "צריח",
-      "friendly": "צריח הגיבור"
+      "name": "הצריח",
+      "friendly": "הצריח הגיבור"
     },
     "bishop": {
-      "name": "רץ",
-      "friendly": "רץ הזריז"
+      "name": "הרץ",
+      "friendly": "הרץ הזריז"
     },
     "queen": {
       "name": "מלכה",
