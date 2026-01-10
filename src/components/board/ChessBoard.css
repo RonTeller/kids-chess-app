@@ -1,20 +1,18 @@
 .chess-board {
   display: grid;
   gap: 2px;
-  padding: 16px;
+  padding: clamp(8px, 2vmin, 16px);
   background: linear-gradient(135deg, #8B4513, #A0522D);
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  max-width: 90vmin;
-  max-height: 90vmin;
+  width: min(90vmin, calc(100vw - 40px));
+  max-width: 600px;
   aspect-ratio: 1;
 }
 
 .square {
   aspect-ratio: 1;
-  min-width: 60px;
-  min-height: 60px;
-  border-radius: 8px;
+  border-radius: clamp(4px, 1vmin, 8px);
   display: flex;
   align-items: center;
   justify-content: center;
