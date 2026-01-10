@@ -9,8 +9,9 @@ import { useLessonStore } from '../../stores/lessonStore'
 import { getLessonForPiece } from '../../lessons/lessonData'
 import { playMoveSound, playStarSound, playCelebrationSound, playFireworksSound } from '../../audio/sounds'
 import { calculateEscapeMove } from '../../chess/chaseAI'
+import { getValidMoves } from '../../chess/moveValidation'
 import { positionToKey, positionsEqual } from '../../chess/types'
-import type { Position } from '../../chess/types'
+import type { Position, Piece } from '../../chess/types'
 import './LessonScreen.css'
 
 interface LessonScreenProps {
@@ -37,6 +38,31 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
 
   const step = getCurrentStep()
   const lesson = getLessonForPiece(currentPiece)
+
+  // Generate a safe random position for the enemy king (not reachable on first move)
+  const generateSafeEnemyPosition = (playerPiece: Piece, playerPosition: Position): Position => {
+    const board = new Map<string, Piece>()
+    board.set(positionToKey(playerPosition), playerPiece)
+
+    const playerMoves = getValidMoves(playerPiece, playerPosition, board, 8)
+    const reachableKeys = new Set(playerMoves.map(p => positionToKey(p)))
+    reachableKeys.add(positionToKey(playerPosition)) // Also exclude player's position
+
+    // Find all safe positions
+    const safePositions: Position[] = []
+    for (let row = 0; row < 8; row++) {
+      for (let col = 0; col < 8; col++) {
+        const key = positionToKey({ row, col })
+        if (!reachableKeys.has(key)) {
+          safePositions.push({ row, col })
+        }
+      }
+    }
+
+    // Pick a random safe position
+    const randomIndex = Math.floor(Math.random() * safePositions.length)
+    return safePositions[randomIndex]
+  }
 
   // Generate random target positions for challenge step
   const generateRandomTargets = (count: number, piecePosition: Position): Position[] => {
@@ -77,10 +103,17 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
       targets = generateRandomTargets(3, piecePos)
     }
 
-    // For chase mode, add the enemy piece to the board
-    if (step.type === 'chase' && step.enemyPiece) {
-      piecesToPlace.push(step.enemyPiece)
-      enemyPositionRef.current = step.enemyPiece.position
+    // For chase mode, add the enemy piece to the board with a safe random position
+    if (step.type === 'chase' && step.enemyPiece && step.pieces.length > 0) {
+      const playerPiece = step.pieces[0].piece
+      const playerPosition = step.pieces[0].position
+      const safePosition = generateSafeEnemyPosition(playerPiece, playerPosition)
+
+      piecesToPlace.push({
+        piece: step.enemyPiece.piece,
+        position: safePosition
+      })
+      enemyPositionRef.current = safePosition
     } else {
       enemyPositionRef.current = null
     }
