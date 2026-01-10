@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import type { LessonStepType } from '../../lessons/lessonData'
 
 interface LessonPromptProps {
@@ -6,14 +7,8 @@ interface LessonPromptProps {
   pieceName: string
 }
 
-const prompts: Record<LessonStepType, (name: string) => string> = {
-  practice: () => `Move me around!`,
-  challenge: () => `Catch the stars!`,
-  chase: () => `Catch me!`
-}
-
-export function LessonPrompt({ stepType, pieceName }: LessonPromptProps) {
-  const prompt = prompts[stepType](pieceName)
+export function LessonPrompt({ stepType }: LessonPromptProps) {
+  const { t } = useTranslation()
 
   return (
     <motion.div
@@ -23,7 +18,7 @@ export function LessonPrompt({ stepType, pieceName }: LessonPromptProps) {
       animate={{ y: 0, opacity: 1 }}
       exit={{ y: 20, opacity: 0 }}
     >
-      <span className="lesson-prompt-text">{prompt}</span>
+      <span className="lesson-prompt-text">{t(`prompts.${stepType}`)}</span>
     </motion.div>
   )
 }

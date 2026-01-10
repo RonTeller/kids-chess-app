@@ -1,0 +1,37 @@
+{
+  "home": {
+    "title": "Learn Chess!",
+    "subtitle": "Tap a piece to learn how it moves"
+  },
+  "prompts": {
+    "practice": "Move me around!",
+    "challenge": "Catch the stars!",
+    "chase": "Catch me!"
+  },
+  "pieces": {
+    "rook": {
+      "name": "Rook",
+      "friendly": "Rocky the Rook"
+    },
+    "bishop": {
+      "name": "Bishop",
+      "friendly": "Bella the Bishop"
+    },
+    "queen": {
+      "name": "Queen",
+      "friendly": "Queen Queenie"
+    },
+    "king": {
+      "name": "King",
+      "friendly": "King Kenny"
+    },
+    "knight": {
+      "name": "Knight",
+      "friendly": "Nelly the Knight"
+    },
+    "pawn": {
+      "name": "Pawn",
+      "friendly": "Penny the Pawn"
+    }
+  }
+}

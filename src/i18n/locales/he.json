@@ -1,0 +1,37 @@
+{
+  "home": {
+    "title": "למדו שחמט!",
+    "subtitle": "הקישו על כלי כדי ללמוד איך הוא זז"
+  },
+  "prompts": {
+    "practice": "הזיזו אותי!",
+    "challenge": "תפסו את הכוכבים!",
+    "chase": "תפסו אותי!"
+  },
+  "pieces": {
+    "rook": {
+      "name": "צריח",
+      "friendly": "צריח הגיבור"
+    },
+    "bishop": {
+      "name": "רץ",
+      "friendly": "רץ הזריז"
+    },
+    "queen": {
+      "name": "מלכה",
+      "friendly": "המלכה הנפלאה"
+    },
+    "king": {
+      "name": "מלך",
+      "friendly": "המלך החכם"
+    },
+    "knight": {
+      "name": "פרש",
+      "friendly": "הפרש האמיץ"
+    },
+    "pawn": {
+      "name": "חייל",
+      "friendly": "החייל הקטן"
+    }
+  }
+}

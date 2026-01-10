@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import { ChessBoard } from '../board/ChessBoard'
 import { Celebration } from '../feedback/Celebration'
 import { LessonHeader } from './LessonHeader'
@@ -19,6 +20,7 @@ interface LessonScreenProps {
 }
 
 export function LessonScreen({ onBack }: LessonScreenProps) {
+  const { t } = useTranslation()
   const { setupBoard } = useGameStore()
   const {
     currentPiece,
@@ -272,7 +274,7 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
       exit={{ opacity: 0, y: -20 }}
     >
       <LessonHeader
-        pieceName={lesson.friendlyName}
+        pieceName={t(`pieces.${currentPiece}.friendly`)}
         currentStep={currentStepIndex + 1}
         totalSteps={lesson.steps.length}
         themeColor={lesson.themeColor}
@@ -280,7 +282,7 @@ export function LessonScreen({ onBack }: LessonScreenProps) {
       />
 
       <div className="lesson-content">
-        <LessonPrompt stepType={step.type} pieceName={lesson.friendlyName} />
+        <LessonPrompt stepType={step.type} pieceName={t(`pieces.${currentPiece}.friendly`)} />
 
         {step.type === 'practice' && (
           <motion.div

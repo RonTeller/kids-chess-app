@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import { getAllLessons } from '../../lessons/lessonData'
 import type { PieceType } from '../../chess/types'
 import {
@@ -9,6 +10,7 @@ import {
   KingPiece,
   PawnPiece
 } from '../pieces'
+import { LanguageToggle } from '../common/LanguageToggle'
 import './HomeScreen.css'
 
 interface HomeScreenProps {
@@ -25,6 +27,7 @@ const pieceComponents: Record<PieceType, React.FC<{ color: 'white' | 'black' }>>
 }
 
 export function HomeScreen({ onSelectPiece }: HomeScreenProps) {
+  const { t } = useTranslation()
   const lessons = getAllLessons()
 
   return (
@@ -34,13 +37,15 @@ export function HomeScreen({ onSelectPiece }: HomeScreenProps) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
+      <LanguageToggle />
+
       <motion.h1
         className="home-title"
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: 'spring', bounce: 0.4 }}
       >
-        Learn Chess!
+        {t('home.title')}
       </motion.h1>
 
       <motion.p
@@ -49,7 +54,7 @@ export function HomeScreen({ onSelectPiece }: HomeScreenProps) {
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.1 }}
       >
-        Tap a piece to learn how it moves
+        {t('home.subtitle')}
       </motion.p>
 
       <div className="piece-grid">
@@ -77,7 +82,9 @@ export function HomeScreen({ onSelectPiece }: HomeScreenProps) {
               <div className="piece-card-icon">
                 <PieceComponent color="white" />
               </div>
-              <span className="piece-card-name">{lesson.friendlyName}</span>
+              <span className="piece-card-name">
+                {t(`pieces.${lesson.pieceType}.friendly`)}
+              </span>
             </motion.button>
           )
         })}
