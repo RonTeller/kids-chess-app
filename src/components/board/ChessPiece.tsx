@@ -1,29 +1,16 @@
 import { motion } from 'framer-motion'
 import type { Piece } from '../../chess/types'
-import {
-  RookPiece,
-  BishopPiece,
-  KnightPiece,
-  QueenPiece,
-  KingPiece,
-  PawnPiece
-} from '../pieces'
+import { usePreferencesStore } from '../../stores/preferencesStore'
+import { getPieceComponents } from '../pieces/pieceComponentMap'
 
 interface ChessPieceProps {
   piece: Piece
   isSelected: boolean
 }
 
-const pieceComponents = {
-  rook: RookPiece,
-  bishop: BishopPiece,
-  knight: KnightPiece,
-  queen: QueenPiece,
-  king: KingPiece,
-  pawn: PawnPiece
-}
-
 export function ChessPiece({ piece, isSelected }: ChessPieceProps) {
+  const pieceTheme = usePreferencesStore((s) => s.pieceTheme)
+  const pieceComponents = getPieceComponents(pieceTheme)
   const PieceComponent = pieceComponents[piece.type]
 
   return (

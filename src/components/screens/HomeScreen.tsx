@@ -2,32 +2,20 @@ import { motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { getAllLessons } from '../../lessons/lessonData'
 import type { PieceType } from '../../chess/types'
-import {
-  RookPiece,
-  BishopPiece,
-  KnightPiece,
-  QueenPiece,
-  KingPiece,
-  PawnPiece
-} from '../pieces'
+import { usePreferencesStore } from '../../stores/preferencesStore'
+import { getPieceComponents } from '../pieces/pieceComponentMap'
 import { LanguageToggle } from '../common/LanguageToggle'
+import { ThemeToggle } from '../common/ThemeToggle'
 import './HomeScreen.css'
 
 interface HomeScreenProps {
   onSelectPiece: (piece: PieceType) => void
 }
 
-const pieceComponents: Record<PieceType, React.FC<{ color: 'white' | 'black' }>> = {
-  rook: RookPiece,
-  bishop: BishopPiece,
-  knight: KnightPiece,
-  queen: QueenPiece,
-  king: KingPiece,
-  pawn: PawnPiece
-}
-
 export function HomeScreen({ onSelectPiece }: HomeScreenProps) {
   const { t } = useTranslation()
+  const pieceTheme = usePreferencesStore((s) => s.pieceTheme)
+  const pieceComponents = getPieceComponents(pieceTheme)
   const lessons = getAllLessons()
 
   return (
@@ -38,6 +26,7 @@ export function HomeScreen({ onSelectPiece }: HomeScreenProps) {
       exit={{ opacity: 0 }}
     >
       <LanguageToggle />
+      <ThemeToggle />
 
       <motion.h1
         className="home-title"
